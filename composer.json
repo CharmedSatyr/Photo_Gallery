@@ -1,4 +1,6 @@
 {
+    "name": "Photo Gallery",
+    "description": "A photo gallery made for PHP practice.",
     "require": {
         "squizlabs/php_codesniffer": "^3.5"
     }

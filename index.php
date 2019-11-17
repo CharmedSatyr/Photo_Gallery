@@ -17,8 +17,9 @@
              *
              * @link https://github.com/CharmedSatyr/Photo_Gallery
              */
-            if (isset($_GET['album'])) {
-                echo $_GET['album'];
+            require './globals.php';
+            if (isset($_GET[$sSubFolder]) && is_dir($sSrcPath)) {
+                echo $_GET[$sSubFolder];
             } else {
                 echo 'Photo Gallery';
             }
