@@ -11,7 +11,7 @@
  * 
  * @package Photo_Gallery
  * 
- * @author Joseph <z@charmed.tech>
+ * @author CharmedSatyr <z@charmed.tech>
  *
  * @license GNU General Public License v3.0
  *
@@ -26,7 +26,6 @@ if (isset($_GET['album'])) {
 </title>
 <link rel="stylesheet" type="text/css" href="gallery.css" />
 <link rel="stylesheet" type="text/css" href="colorbox/colorbox.css" />
-<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" />
 </head>
 <body>
     <div>
@@ -35,18 +34,19 @@ if (isset($_GET['album'])) {
     <div class="gallery">  
         <?php require "gallery.php"; ?>
     </div>
-<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="colorbox/jquery.colorbox-min.js"></script>
-<script type="text/javascript" src="fancybox/jquery.fancybox-1.3.4.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".albumpix").colorbox({rel:'albumpix'});
-            $("a.albumpix").fancybox({
-                'autoScale': true, 
-                'hideOnOverlayClick': true,
-            'hideOnContentClick': true
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="colorbox/jquery.colorbox-min.js"></script>
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".albumpix").colorbox({rel:'albumpix'});
+                $("a.albumpix").fancybox({
+                    'autoScale': true, 
+                    'hideOnOverlayClick': true,
+                'hideOnContentClick': true
+            });
         });
-    });
     </script>
 </body>
 </html>
