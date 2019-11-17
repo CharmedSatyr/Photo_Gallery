@@ -1,62 +1,60 @@
 <?php
 /** 
  * This file displays a photo gallery.
- * 
  * PHP Version 7.3
  * 
  * @category PHP
  *
  * @package Photo_Gallery
  *
- * @author Joseph <z@charmed.tech>
+ * @author CharmedSatyr <z@charmed.tech>
  *
  * @license GNU General Public License v3.0
  *
  * @link https://github.com/CharmedSatyr/Photo_Gallery
  */
-$mainFolder    = 'albums';
-$albumsPerPage = '12';       // number of albums per page
-$itemsPerPage  = '12';       // number of images per page    
-$thumb_width   = '150';      // width of thumbnails
-//$thumb_height  = '85';       // height of thumbnails
-$extensions    = array(
-                        ".jpg",".png",".gif",".JPG",".PNG",".GIF"
-                );
+$sMainFolder    = 'albums';
+$iAlbumsPerPage = 12;       // number of albums per page
+$itemsPerPage   = 12;       // number of images per page    
+$iThumbWidth    = 150;      // width of thumbnails
+//$iThumbHeight   = 85;       // height of thumbnails
+$asExtensions   = array(".jpg",".png",".gif",".JPG",".PNG",".GIF");
 
 /**
  * Create thumbnails from images
  * 
- * @param $sFolder      string
- * @param $sSrc         string 
- * @param $sDest        string
- * @param $sThumb_width string
+ * @param $sFolder     string
+ * @param $sSrc        string 
+ * @param $sDest       string
+ * @param $iThumbWidth integer
  * 
  * @return null
  */
-function Make_thumb($sFolder, $sSrc, $sDest, $sThumb_width)
+function makeThumb($sFolder, $sSrc, $sDest, $iThumbWidth)
 {
-    $source_image = imagecreatefromjpeg($folder . '/'.$src);
-    $width = imagesx($source_image);
-    $height = imagesy($source_image);
+    $sFilename = $sFolder . '/' . $sSrc;
+    $oSourceImage = imagecreatefromjpeg($sFilename);
+    $iWidth = imagesx($oSourceImage);
+    $iHeight = imagesy($oSourceImage);
 
-    $thumb_height = floor($height*($thumb_width/$width));
+    $iThumbHeight = floor($iHeight * ($iThumbWidth / $iWidth));
 
-    $virtual_image = imagecreatetruecolor($thumb_width, $thumb_height);
+    $oVirtualImage = imagecreatetruecolor($iThumbWidth, $iThumbHeight);
 
     imagecopyresampled(
-        $virtual_image,
-        $source_image,
+        $oVirtualImage,
+        $oSourceImage,
         0,
         0,
         0, 
         0,
-        $thumb_width,
-        $thumb_height,
-        $width,
-        $height
+        $iThumbWidth,
+        $iThumbHeight,
+        $iWidth,
+        $iHeight
     );
 
-    imagejpeg($virtual_image, $dest, 100);
+    imagejpeg($oVirtualImage, $sDest, 100);
 }
 
 /**
@@ -68,150 +66,158 @@ function Make_thumb($sFolder, $sSrc, $sDest, $sThumb_width)
  * 
  * @return null
  */
-function Print_pagination($iNumPages, $sUrlVars, $iCurrentPage)
+function printPagination($iNumPages, $sUrlVars, $iCurrentPage)
 {        
-    if ($numPages > 1) {
-        echo 'Page '. $currentPage . ' of '. $numPages;
-        echo '&nbsp;&nbsp;&nbsp;';
-        if ($currentPage > 1) {
-            $prevPage = $currentPage - 1;
-            echo '<a href="?'. $urlVars . 'p='. $prevPage. '">&laquo;&laquo;</a> ';
+    if ($iNumPages > 1) {
+        echo 'Image ' . $iCurrentPage . ' of ' . $iNumPages;
+
+        if ($iCurrentPage > 1) {
+            $iPrevPage = $iCurrentPage - 1;
+            echo '<a href="?' . $sUrlVars . 'p=' . $iPrevPage . 
+                '">&laquo;&laquo;</a> ';
         } 
-        for ($e=0; $e < $numPages; $e++ ) {
-            $p = $e + 1;
-            if ($p == $currentPage) {
-                $class = 'current-paginate';
+
+        for ($e = 0; $e < $iNumPages; $e++) {
+            $sPage = $e + 1;
+            if ($sPage == $iCurrentPage) {
+                $sClass = 'current-paginate';
             } else {
-                $class = 'paginate';
+                $sClass = 'paginate';
             }
-            echo '<a class="' . $class . '" href="?' . $urlVars . 'p=' . 
-                $p . '">' . $p . '</a>';
+            echo '<a class="' . $sClass . '" href="?' . $sUrlVars . 'p=' . 
+                $sPage . '">' . $sPage . '</a>';
         }
-        if ($currentPage != $numPages) {
-            $nextPage = $currentPage + 1;
-            echo ' <a href="?'. $urlVars . 'p='. $nextPage. '">&raquo;&raquo;</a>';
+        if ($iCurrentPage != $iNumPages) {
+            $iNextPage = $iCurrentPage + 1;
+            echo ' <a href="?' . $sUrlVars . 'p=' . $iNextPage . 
+                '">&raquo;&raquo;</a>';
         }
     }
 }
 
 if (!isset($_GET['album'])) {
-    $folders = scandir($mainFolder, 0);
-    $ignore  = array('.', '..', 'thumbs');
-    $albums = array();
-    $captions = array();
-    $random_pics = array();
-    foreach ($folders as $album) {
-        if (!in_array($album, $ignore)) {     
-            array_push($albums, $album);
-            $caption = substr($album, 0, 20);
-            array_push($captions, $caption);
-            $rand_dirs = glob($mainFolder . '/'.$album . '/thumbs/*.*', GLOB_NOSORT);
-            $rand_pic  = $rand_dirs[array_rand($rand_dirs)];
-            array_push($random_pics, $rand_pic);
+    $asFolders = scandir($sMainFolder, 0);
+    $asIgnore  = array('.', '..', 'thumbs');
+    $asAlbums = array();
+    $asCaptions = array();
+    $asRandomPics = array();
+    foreach ($asFolders as $sAlbum) {
+        if (!in_array($sAlbum, $asIgnore)) {     
+            array_push($asAlbums, $sAlbum);
+            $sCaption = substr($sAlbum, 0, 20);
+            array_push($asCaptions, $sCaption);
+            $asRandDirs = glob(
+                $sMainFolder . '/' . $sAlbum . '/thumbs/*.*',
+                GLOB_NOSORT
+            );
+            $sRandPic  = $asRandDirs[array_rand($asRandDirs)];
+            array_push($asRandomPics, $sRandPic);
         }
     }
-    if (count($albums) == 0) {
+    if (count($asAlbums) == 0) {
         echo 'There are currently no albums.';
     } else {
-        $numPages = ceil(count($albums) / $albumsPerPage);
+        $iNumPages = ceil(count($asAlbums) / $iAlbumsPerPage);
+
         if (isset($_GET['p'])) {
-            $currentPage = $_GET['p'];
-            if ($currentPage > $numPages) {
-                $currentPage = $numPages;
+            $iCurrentPage = $_GET['p'];
+            if ($iCurrentPage > $iNumPages) {
+                $iCurrentPage = $iNumPages;
             }
         } else {
-            $currentPage = 1;
+            $iCurrentPage = 1;
         }
-        $start = ( $currentPage * $albumsPerPage ) - $albumsPerPage;
+        $start = ($iCurrentPage * $iAlbumsPerPage) - $iAlbumsPerPage;
         echo '<div class="titlebar">
-<div class="float-left"><span class="title">Photo Gallery</span> - Albums</div>
-<div class="float-right">'.count($albums) . ' albums</div>
-</div>';
+                <div class="float-left">
+                    <span class="title">Photo Gallery</span> - Albums
+                </div>
+                <div class="float-right">'.count($asAlbums) . ' albums</div>
+              </div>';
         echo '<div class="clear"></div>';
-        for ($i=$start; $i<$start + $albumsPerPage; $i++ ) {
-            if (isset($albums[$i]) ) {
+        for ($i = $start; $i < $start + $iAlbumsPerPage; $i++) {
+            if (isset($asAlbums[$i])) {
                 echo '<div class="thumb-album shadow">
 						<div class="thumb-wrapper">
-						   <a href="'.$_SERVER['PHP_SELF'] . '?album='. urlencode($albums[$i]) . '">
-			                 <img src="'. $random_pics[$i] . '" width="'. $thumb_width . '" />
-						   </a>	
+						    <a href="'.$_SERVER['PHP_SELF'] . '?album='. urlencode($asAlbums[$i]) . '">
+                                <img src="'. $asRandomPics[$i] . 
+                                    '" width="'. $iThumbWidth . '" />
+						   </a>
 					    </div>
-						
 						<div class="p5"></div>
-					    
-						<a href="'.$_SERVER['PHP_SELF'] . '?album='. urlencode($albums[$i]) . '">
-						<span class="caption">'. $captions[$i] . '</span>
+						<a href="' . $_SERVER['PHP_SELF'] . '?album=' . urlencode($asAlbums[$i]) . '">
+						<span class="caption">'. $asCaptions[$i] . '</span>
 						</a>
-		            
-					  </div>';
+                      </div>';
             }
         }
         echo '<div class="clear"></div>';
         echo '<div align="center" class="paginate-wrapper">';
-        $urlVars = "";
-        print_pagination($numPages, $urlVars, $currentPage);
+        $sUrlVars = "";
+        printPagination($iNumPages, $sUrlVars, $iCurrentPage);
         echo '</div>';
     }
 } else {
     // display photos in album
-    $src_folder = $mainFolder . '/'.$_GET['album'];
-    $src_files  = scandir($src_folder);
-    $files = array();
-    foreach ($src_files as $file) {
-        $ext = strrchr($file, '.');
-        if (in_array($ext, $extensions)) {
-            array_push($files, $file);
-            if (!is_dir($src_folder . '/thumbs')) {
-                mkdir($src_folder . '/thumbs');
-                chmod($src_folder . '/thumbs', 0777);
-                //chown($src_folder.'/thumbs', 'apache'); 
+    $sSrcFolder = $sMainFolder . '/'.$_GET['album'];
+    $asSrcFiles  = scandir($sSrcFolder);
+    $asFiles = array();
+    foreach ($asSrcFiles as $sFile) {
+        $sExt = strrchr($sFile, '.');
+        if (in_array($sExt, $asExtensions)) {
+            array_push($asFiles, $sFile);
+            if (!is_dir($sSrcFolder . '/thumbs')) {
+                mkdir($sSrcFolder . '/thumbs');
+                chmod($sSrcFolder . '/thumbs', 0777);
+                //chown($sSrcFolder.'/thumbs', 'apache'); 
             }
-            $thumb = $src_folder . '/thumbs/'.$file;
+            $thumb = $sSrcFolder . '/thumbs/'.$sFile;
             if (!file_exists($thumb)) {
-                Make_thumb($src_folder, $file, $thumb, $thumb_width); 
+                makeThumb($sSrcFolder, $sFile, $thumb, $iThumbWidth); 
             }        
         }
     }
-    if (count($files) == 0 ) {
+    if (count($asFiles) == 0) {
         echo 'There are no photos in this album!';
     } else {
-        $numPages = ceil(count($files) / $itemsPerPage);
+        $iNumPages = ceil(count($asFiles) / $itemsPerPage);
         if (isset($_GET['p'])) {
-            $currentPage = $_GET['p'];
-            if ($currentPage > $numPages) {
-                $currentPage = $numPages;
+            $iCurrentPage = $_GET['p'];
+            if ($iCurrentPage > $iNumPages) {
+                $iCurrentPage = $iNumPages;
             }
         } else {
-            $currentPage=1;
+            $iCurrentPage = 1;
         }
-        $start = ($currentPage * $itemsPerPage) - $itemsPerPage;
+        $start = ($iCurrentPage * $itemsPerPage) - $itemsPerPage;
         echo '<div class="titlebar">
            <div class="float-left"><span class="title">' . 
                $_GET['album'] . '</span> - <a href="' . $_SERVER['PHP_SELF'] . 
                '">View All Albums</a></div>
-           <div class="float-right">'.count($files) . ' images</div>
+           <div class="float-right">'.count($asFiles) . ' images</div>
         </div>'; 
         echo '<div class="clear"></div>';
         for ($i=$start; $i<$start + $itemsPerPage; $i++) {
-            if (isset($files[$i]) && is_file($src_folder . '/'. $files[$i])) { 
+            if (isset($asFiles[$i]) && is_file($sSrcFolder . '/'. $asFiles[$i])) { 
                 echo '<div class="thumb shadow">
 	                <div class="thumb-wrapper">
-					<a href="'. $src_folder . '/'. $files[$i] . '" class="albumpix" rel="albumpix">
-                      <img src="' . $src_folder . '/thumbs/' . $files[$i] .
-                      '" width="' . $thumb_width . '" alt="" />
+                    <a href="'. $sSrcFolder . '/'. $asFiles[$i] . 
+                        '" class="albumpix" rel="albumpix">
+                      <img src="' . $sSrcFolder . '/thumbs/' . $asFiles[$i] .
+                      '" width="' . $iThumbWidth . '" alt="" />
 				    </a>
 					</div>  
 			      </div>'; 
             } else {
-                if (isset($files[$i]) ) {
-                    echo $files[$i];
+                if (isset($asFiles[$i])) {
+                    echo $asFiles[$i];
                 }
             }
         }
         echo '<div class="clear"></div>';
         echo '<div align="center" class="paginate-wrapper">';
-        $urlVars = "album=".urlencode($_GET['album']) . "&amp;";
-        print_pagination($numPages, $urlVars, $currentPage);
+        $sUrlVars = "album=".urlencode($_GET['album']) . "&amp;";
+        printPagination($iNumPages, $sUrlVars, $iCurrentPage);
         echo '</div>';
     }
 }
