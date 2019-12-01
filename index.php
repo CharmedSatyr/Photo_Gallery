@@ -29,6 +29,8 @@
             <link rel="stylesheet" type="text/css" 
                 href="./styles/colorbox/colorbox.css" />
             <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+            <link href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+                rel="stylesheet">
         </head>
 <body>
     <div>
