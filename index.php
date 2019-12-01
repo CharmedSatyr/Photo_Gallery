@@ -25,10 +25,10 @@
             }
             ?>
             </title>
-            <link rel="stylesheet" type="text/css" href="styles/gallery.css" />
+            <link rel="stylesheet" type="text/css" href="./styles/gallery.css" />
             <link rel="stylesheet" type="text/css" 
-                href="styles/colorbox/colorbox.css" />
-            <link rel="stylesheet" type="text/css" href="styles/index.css" />
+                href="./styles/colorbox/colorbox.css" />
+            <link rel="stylesheet" type="text/css" href="./styles/index.css" />
         </head>
 <body>
     <div>
@@ -39,7 +39,7 @@
     </div>
     <script src="./js/jquery-3.4.1.min.js">
     </script>
-    <script type="text/javascript" src="./colorbox/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="./js/jquery.colorbox-min.js"></script>
     <script type="text/javascript">
         $(document).ready(() => {
             $(".albumpix").colorbox({rel:'albumpix'});
