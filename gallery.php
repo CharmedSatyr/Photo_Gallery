@@ -138,19 +138,18 @@ if (!isset($_GET[$sSubFolder]) || !is_dir($sSrcPath)) {
         echo '<div class="clear"></div>';
         for ($i = $start; $i < $start + $iAlbumsPerPage; $i++) {
             if (isset($asAlbums[$i])) {
-                echo '<div class="thumb-album shadow">
+                echo 
+                '<a href="'.$_SERVER['PHP_SELF'] . '?album=' . 
+                    urlencode($asAlbums[$i]) . '">
+                    <div class="thumb-album shadow">
 						<div class="thumb-wrapper">
-                            <a href="'.$_SERVER['PHP_SELF'] . '?album=' .
-                                urlencode($asAlbums[$i]) . '">
-                                <img src="'. $asRandomPics[$i] . 
-                                    '" width="'. $iThumbWidth . '" />
-						   </a>
-					    </div>
-						<div class="p5"></div>
-						<a href="' . $_SERVER['PHP_SELF'] . '?album=' . urlencode($asAlbums[$i]) . '">
-						<span class="caption">'. $asCaptions[$i] . '</span>
-						</a>
-                      </div>';
+                            <img src="'. $asRandomPics[$i] . 
+                                '" width="'. $iThumbWidth . '" />
+					</div>
+					<div class="p5"></div>
+					<span class="caption">'. $asCaptions[$i] . '</span>
+                    </div>
+                </a>';
             }
         }
         echo '<div class="clear"></div>';
