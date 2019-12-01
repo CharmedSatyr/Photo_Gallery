@@ -166,7 +166,7 @@ if (!isset($_GET[$sSubFolder]) || !is_dir($sSrcPath)) {
 
             if (in_array($sExt, $asExtensions)) {
                 array_push($asFiles, $sFile);
-                $sCaption = stristr($sFile, $sExt, true);
+                $sCaption = substr(stristr($sFile, $sExt, true), 0, 25);
                 array_push($asCaptions, $sCaption);
 
                 if (!is_dir($sSrcPath . '/thumbs')) {
