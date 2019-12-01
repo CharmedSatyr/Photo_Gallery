@@ -142,8 +142,8 @@ if (!isset($_GET[$sSubFolder]) || !is_dir($sSrcPath)) {
 						<div class="thumb-wrapper">
                             <img src="'. $asRandomPics[$i] . 
                                 '" width="'. $iThumbWidth . '" />
-					</div>
-					<span class="caption">'. $asCaptions[$i] . '</span>
+					    </div>
+					    <span class="caption">'. $asCaptions[$i] . '</span>
                     </div>
                 </a>';
             }
@@ -158,12 +158,16 @@ if (!isset($_GET[$sSubFolder]) || !is_dir($sSrcPath)) {
     // display photos in album
     $asSrcFiles = scandir($sSrcPath);
     $asFiles = array();
+    $asCaptions = array();
+
     if (is_array($asSrcFiles)) {
         foreach ($asSrcFiles as $sFile) {
             $sExt = strrchr($sFile, '.');
 
             if (in_array($sExt, $asExtensions)) {
                 array_push($asFiles, $sFile);
+                $sCaption = stristr($sFile, $sExt, true);
+                array_push($asCaptions, $sCaption);
 
                 if (!is_dir($sSrcPath . '/thumbs')) {
                     mkdir($sSrcPath . '/thumbs');
@@ -201,17 +205,19 @@ if (!isset($_GET[$sSubFolder]) || !is_dir($sSrcPath)) {
                 </h3>
             </div>';
         echo '<div class="thumb-grid">';
-        for ($i=$start; $i<$start + $itemsPerPage; $i++) {
+        for ($i = $start; $i < $start + $itemsPerPage; $i++) {
             if (isset($asFiles[$i]) && is_file($sSrcPath . '/'. $asFiles[$i])) {
-                echo '<div class="thumb thumb-pic shadow">
-	                <div class="thumb-wrapper">
-                    <a href="'. $sSrcPath . '/'. $asFiles[$i] .
+                echo
+                    '<a href="'. $sSrcPath . '/'. $asFiles[$i] .
                         '" class="albumpix" rel="albumpix">
-                      <img src="' . $sSrcPath . '/thumbs/' . $asFiles[$i] .
-                      '" width="' . $iThumbWidth . '" alt="" />
-				    </a>
-					</div>  
-			      </div>'; 
+                        <div class="thumb shadow">
+	                        <div class="thumb-wrapper">
+                                <img src="' . $sSrcPath . '/thumbs/' . $asFiles[$i] .
+                                    '" width="' . $iThumbWidth . '" alt="" />
+                            </div>
+                            <span class="caption">'. $asCaptions[$i] . '</span>
+                        </div>
+                    </a>';
             } else {
                 if (isset($asFiles[$i])) {
                     echo $asFiles[$i];

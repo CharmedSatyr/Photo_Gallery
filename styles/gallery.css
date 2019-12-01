@@ -69,10 +69,6 @@ body {
    color:#bbb;
 }
 
-.gallery .thumb-pic {
-    height: 110px;
-}
-
 .gallery .thumb-wrapper {
     height: 110px;
     overflow: hidden;
