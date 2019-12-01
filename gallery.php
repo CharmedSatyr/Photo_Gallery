@@ -171,7 +171,7 @@ if (!isset($_GET[$sSubFolder]) || !is_dir($sSrcPath)) {
 
                 if (!is_dir($sSrcPath . '/thumbs')) {
                     mkdir($sSrcPath . '/thumbs');
-                    chmod($sSrcPath . '/thumbs', 0777);
+                    chmod($sSrcPath . '/thumbs', 777);
                     chown($sSrcPath.'/thumbs', 'apache');
                 }
 
