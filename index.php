@@ -25,8 +25,10 @@
             }
             ?>
             </title>
-            <link rel="stylesheet" type="text/css" href="gallery.css" />
-            <link rel="stylesheet" type="text/css" href="colorbox/colorbox.css" />
+            <link rel="stylesheet" type="text/css" href="styles/gallery.css" />
+            <link rel="stylesheet" type="text/css" 
+                href="styles/colorbox/colorbox.css" />
+            <link rel="stylesheet" type="text/css" href="styles/index.css" />
         </head>
 <body>
     <div>
