@@ -1,6 +1,6 @@
 body {
     background: #222;
-    background-image: url('../img/5-dots.png'); 
+    background-image: url('../img/5-dots.png');
     color: #222;
     font-family: 'Lato', Arial, Helvetica, sans-serif;
     font-size: 12px;
@@ -10,6 +10,7 @@ body {
 
 .gallery {
     background: #ededed;
+    background-image: url('../img/so-white.png');
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
