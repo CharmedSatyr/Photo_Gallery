@@ -1,2 +1,6 @@
-/* avoid outlines on :focus (mouseclick), even though it will affect tabbed navigation */
-/*#cboxPrevious:focus, #cboxNext:focus, #cboxSlideshow:focus, #cboxClose:focus {outline:0;}*/
+.go-home h3 a {
+  color: #bbb;
+  color: #fcbd70;
+  margin-left: 1em;
+  text-decoration: none;
+}

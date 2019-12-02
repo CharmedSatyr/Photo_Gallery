@@ -33,8 +33,10 @@
                 rel="stylesheet">
         </head>
 <body>
-    <div>
-        <a href="https://www.charmed.tech">Go back</a>
+    <div class="go-home">
+        <h3>
+            <a href="https://www.charmed.tech">← Return to Charmed.Tech</a>
+        </h3>
     </div>
     <div class="gallery">  
         <?php require "./gallery.php"; ?>
