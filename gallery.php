@@ -209,7 +209,7 @@ if (!isset($_GET[$sSubFolder]) || !is_dir($sSrcPath)) {
             if (isset($asFiles[$i]) && is_file($sSrcPath . '/'. $asFiles[$i])) {
                 echo
                     '<a href="'. $sSrcPath . '/'. $asFiles[$i] .
-                        '" class="albumpix" rel="albumpix">
+                        '" class="photo-gallery" rel="photo-gallery">
                         <div class="thumb shadow">
 	                        <div class="thumb-wrapper">
                                 <img src="' . $sSrcPath . '/thumbs/' . $asFiles[$i] .

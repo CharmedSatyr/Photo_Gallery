@@ -44,7 +44,8 @@
     <script type="text/javascript" src="./js/jquery.colorbox-min.js"></script>
     <script type="text/javascript">
         $(document).ready(() => {
-            $(".albumpix").colorbox({rel:'albumpix'});
+            $(".photo-gallery")
+            .colorbox({rel:'photo-gallery', maxWidth: '720px', maxHeight: '720px'});
         });
     </script>
 </body>
